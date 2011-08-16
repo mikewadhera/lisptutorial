@@ -1,12 +1,9 @@
 ;; (apply-func-list L X) -- applies list of functions in L to X in reverse
 ;; (apply-func-list (list #'double #'list-length #'rest) '(1 2 3)) = 4
 (defun apply-func-list (L X)
-	(apply-func-list-aux (reverse L) X))
-	
-(defun apply-func-list-aux (L X)
 	(if (null L)
 		X
-	 (apply-func-list-aux (rest L) (funcall (first L) X))))
+	 (funcall (first L) (apply-func-list (rest L) X))))
 	
 ; 10 times the fourth element of the list (10 20 30 40 50) [400]
 (apply-func-list (list #'(lambda (x) (* 10 x)) #'first #'rest #'rest #'rest) 
